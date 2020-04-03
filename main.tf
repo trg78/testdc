@@ -18,7 +18,13 @@ connection {
       timeout = "2m"
   }
 
-resource "digitalocean_floating_ip_assignment" "foobar" {
-  ip_address = digitalocean_floating_ip.vm1.ip_address
+resource "digitalocean_floating_ip" "floating_ip" {
+  region     = "nyc1"
+
+}
+
+
+resource "digitalocean_floating_ip_assignment" "vm1" {
+  ip_address = digitalocean_floating_ip.floating_ip.ip_address
   droplet_id = digitalocean_droplet.vm1.id
 }
