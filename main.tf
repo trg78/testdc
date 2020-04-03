@@ -4,8 +4,15 @@ resource "digitalocean_droplet" "vm1" {
     region = "nyc1"
     size = "s-1vcpu-1gb"
     private_networking = true
-    ssh_keys = ["${var.ssh_fingerprint}"]
+    ssh_keys = ["${digitalocean_ssh_key.default.id}"]
 }
+
+
+resource "digitalocean_ssh_key" "default" {
+  name = "SSH Key Credential"
+  public_key = "${file("/home/tar78/Desktop/testgomage/digital_ocean_rsa.pub")}"
+}
+
 
 
 connection {
