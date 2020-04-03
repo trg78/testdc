@@ -28,6 +28,8 @@ Terraform v0.11.14
 ```
 
 ```
+Start terraform plan
+
 terraform plan -out=tfplan -input=false 
   -var "do_token=${DO_PAT}" \
   -var "pub_key=$HOME/.ssh/digital_ocean_rsa.pub" \
