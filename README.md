@@ -12,3 +12,18 @@ Test
 "env | grep DO_PAT"
 ```
 
+```
+Install terraform11
+
+curl https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip -o "terraform.zip"
+unzip terraform.zip
+cp terraform /usr/local/bin/terraform
+chmod u+x /usr/local/bin/terraform
+terraform version
+
+Terraform v0.11.14
+```
+
+```
+
+```
