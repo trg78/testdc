@@ -4,7 +4,6 @@ resource "digitalocean_droplet" "vm1" {
     region = "nyc1"
     size = "s-1vcpu-1gb"
     private_networking = true
-    backups = true
     ssh_keys = [
         "${var.ssh_fingerprint}"
     ]
@@ -16,7 +15,8 @@ connection {
       type = "ssh"
       private_key = "${file(var.pvt_key)}"
       timeout = "2m"
-  }
+}
+
 
 resource "digitalocean_floating_ip" "floating_ip" {
   region     = "nyc1"
