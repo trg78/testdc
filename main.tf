@@ -4,9 +4,7 @@ resource "digitalocean_droplet" "vm1" {
     region = "nyc1"
     size = "s-1vcpu-1gb"
     private_networking = true
-    ssh_keys = [
-        "${var.ssh_fingerprint}"
-    ]
+    ssh_keys = ["${var.ssh_fingerprint}"]
 }
 
 
