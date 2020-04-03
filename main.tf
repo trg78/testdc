@@ -1,38 +1,37 @@
-resource "digitalocean_droplet" "vm1" {
+resource "digitalocean_droplet" "vm" {
     image = "ubuntu-18-04-x64"
-    name = "vm1"
+    name = "vm"
     region = "nyc1"
     size = "s-1vcpu-1gb"
     private_networking = true
-    ssh_keys = ["${digitalocean_ssh_key.default.id}"]
-}
-
-
-resource "digitalocean_ssh_key" "default" {
-  name = "SSH Key Credential"
-  public_key = "${file("/home/tar78/Desktop/testgomage/digital_ocean_rsa.pub")}"
-}
+    ssh_keys = [
+      "${var.ssh_fingerprint}"
+    ]
 
 
 
-connection {
+  connection {
       user = "root"
       type = "ssh"
       private_key = "${file(var.pvt_key)}"
       timeout = "2m"
-}
+  }
 
 
-resource "digitalocean_floating_ip" "floating_ip" {
+
+
+
+resource "digitalocean_floating_ip" "vm1" {
   region     = "nyc1"
-
 }
 
 
-resource "digitalocean_floating_ip_assignment" "vm1" {
-  ip_address = digitalocean_floating_ip.floating_ip.ip_address
-  droplet_id = digitalocean_droplet.vm1.id
-}
+
+
+#resource "digitalocean_floating_ip_assignment" "vm1" {
+#  ip_address = digitalocean_floating_ip.vm1.ip_address
+#  droplet_id = digitalocean_droplet.vm1.id
+#}
 
 resource "digitalocean_domain" "vm1" {
   name       = "devops-test.gomage.com"
