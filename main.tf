@@ -1,25 +1,29 @@
 resource "digitalocean_droplet" "vm" {
-    image = "ubuntu-18-04-x64"
-    name = "vm"
-    region = "nyc1"
-    size = "s-1vcpu-1gb"
-    private_networking = true
-    ssh_keys = [
-      "${var.ssh_fingerprint}"
-    ]
+  image = "ubuntu-18-04-x64"
+  name = "vm"
+  region = "nyc1"
+  size = "s-1vcpu-1gb"
+  private_networking = true
+  ssh_keys = "${var.ssh_fingerprint}"
 
-
+}
 
   connection {
       user = "root"
       type = "ssh"
-      private_key = "${file(var.pvt_key)}"
+      private_key = "${file("/testgomage/digital_ocean_rsa")}"
       timeout = "2m"
   }
 
 
 
 
+
+
+
+
+
+/*
 
 resource "digitalocean_floating_ip" "vm1" {
   region     = "nyc1"
@@ -45,3 +49,4 @@ resource "digitalocean_record" "vm1" {
   value  = "${digitalocean_droplet.vm1.ipv4_address}"
 }
 
+*/
