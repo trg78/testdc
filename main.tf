@@ -4,16 +4,19 @@ resource "digitalocean_droplet" "vm" {
   region = "nyc1"
   size = "s-1vcpu-1gb"
   private_networking = true
-  ssh_keys = "${var.ssh_fingerprint}"
+  ssh_keys = ["${var.ssh_fingerprint}"]
 
-}
+
 
   connection {
-      user = "root"
-      type = "ssh"
-      private_key = "${file("/testgomage/digital_ocean_rsa")}"
-      timeout = "2m"
-  }
+     type = "ssh"
+     user = "root"
+     private_key = "${file("/testgomage/digital_ocean_rsa")}"
+     timeout = "2m"
+
+}
+}
+
 
 
 
