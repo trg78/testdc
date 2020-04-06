@@ -12,44 +12,41 @@ resource "digitalocean_droplet" "vm" {
      type = "ssh"
      user = "root"
      private_key = "${file("/testgomage/digital_ocean_rsa")}"
-     timeout = "2m"
+     timeout = "5m"
 
 }
 }
 
 
 
-
-
-
-
-
-
-
-/*
-
-resource "digitalocean_floating_ip" "vm1" {
-  region     = "nyc1"
+#Floating IP assignment
+resource "digitalocean_floating_ip" "ip" {
+  region = "nyc1"
+  droplet_id = "${digitalocean_droplet.vm.0.id}"
 }
 
 
 
+resource "digitalocean_firewall" "vm" {
+  name  = "testing-terraform-firewall"
 
-#resource "digitalocean_floating_ip_assignment" "vm1" {
-#  ip_address = digitalocean_floating_ip.vm1.ip_address
-#  droplet_id = digitalocean_droplet.vm1.id
-#}
 
-resource "digitalocean_domain" "vm1" {
-  name       = "devops-test.gomage.com"
-  ip_address = "${digitalocean_droplet.vm1.ipv4_address}"
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "80"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "443"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
 }
-
-resource "digitalocean_record" "vm1" {
-  domain = "${digitalocean_domain.vm1.name}"
-  type   = "A"
-  name   = "vm1"
-  value  = "${digitalocean_droplet.vm1.ipv4_address}"
-}
-
-*/

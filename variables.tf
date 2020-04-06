@@ -1,7 +1,4 @@
-variable "ip_address" {
-  default = "45.55.107.51"
-}
-
+variable "ip_4address" {}
 variable "do_token" {}
 variable "pub_key" {}
 variable "pvt_key" {}
