@@ -8,7 +8,7 @@ ssh-keygen -E md5 -lf ./digital_ocean_rsa.pub
 ```
 
 ```
-Import secrets from file export_key into terraform.tfvars file :
+Fill terraform.tfvars file with your secrets :
 do_token = "<Your API Digitalocean token>"
 pub_key="/testgomage/digital_ocean_rsa.pub" #Path to pubkey
 pvt_key="/testgomage/digital_ocean_rsa"   #Path to secret key
