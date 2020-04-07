@@ -1,18 +1,20 @@
 # testdc
 Test Digital Ocean 03 04 2020
 ```
-Create Personal access token DO-API-Tokens/Keys  > keyfile :
-"nano export_key" which contains
-
-export DO_PAT={your token}
-export FLOATING_IP=45.55.X.X
-```
+Create Personal access token (DO-API-Tokens/Keys) .
+Create new ssh keys and get md5 fingerprint.
+ssh-keygen -E md5 -lf ./digital_ocean_rsa.pub
 
 ```
-Import token from file export_key into env:
-"source export_key"
-Test
-"env | grep DO_PAT"
+
+```
+Import secrets from file export_key into terraform.tfvars file :
+do_token = "<Your API Digitalocean token>"
+pub_key="/testgomage/digital_ocean_rsa.pub" #Path to pubkey
+pvt_key="/testgomage/digital_ocean_rsa"   #Path to secret key
+ssh_fingerprint="<Your public key fingerpint>" 
+
+
 ```
 
 ```
@@ -28,14 +30,8 @@ Terraform v0.11.14
 ```
 
 ```
-Start terraform plan
-
-terraform plan -out=tfplan -input=false 
-  -var "do_token=${DO_PAT}" \
-  -var "pub_key=$HOME/.ssh/digital_ocean_rsa.pub" \
-  -var "pvt_key=$HOME/.ssh/digital_ocean_rsa" \
-  -var "ssh_fingerprint=f7:19:8a:b5:73:cc:46:5f:7b:be:0c:56:5d:41:96:b0" \
-  -var "digitalocean_floating_ip=$FLOATING_IP"
-terraform apply tfplan
+terraform init -var-file=terraform.tfvars
+terraform plan -var-file=terraform.tfvars
+terraform apply
 
 ```
