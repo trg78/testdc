@@ -15,8 +15,9 @@ listen [::]:8080 default_server;"
 
 wget https://dl.eff.org/certbot-auto
 chmod a+x certbot-auto
-./certbot-auto --nginx --non-interactive --agree-tos --domains varnish2020.ml --email horbenko.taras@gmail.com
+./certbot-auto --nginx --non-interactive --agree-tos --domains varnish2020.ml --email some_mail_2020@gmail.com
 ./certbot-auto certificates
+#Users can now get error -   https://github.com/certbot/certbot/issues/6797   Still unfixed on May 2020
 
 
 #HTTP to HTTPS 301 redirect -
